@@ -39,7 +39,6 @@ function calculateAverageDemand(demands, n) {
   return total / n;
 }
 
-// Function to get the demand along with probability range
 function getDemandWithRange(randomNumber) {
   let cumulativeProb = 0;
   for (let i = 0; i < demandProbabilities.length; i++) {
@@ -75,7 +74,6 @@ function calculateDemand() {
 
   let { randomNumbers, normalizedNumbers } = lcg(X0, a, c, m, days);
 
-  // Map Xi values to demand and include probability range
   let demandsWithRange = randomNumbers.map((num) =>
     getDemandWithRange(num / m)
   );
