@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demand Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+      }
+      input {
+        padding: 10px;
+        margin: 10px 0;
+        width: 100%;
+      }
+      button {
+        padding: 10px;
+        margin-top: 10px;
+        width: 100%;
+        cursor: pointer;
+      }
+      .output {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Daily Demand Calculator</h1>
+      <label for="x0">Enter X₀ (Seed):</label>
+      <input type="number" id="x0" placeholder="Enter X₀ (e.g. 27)" />
+
+      <label for="a">Enter a (Multiplier):</label>
+      <input type="number" id="a" placeholder="Enter a (e.g. 17)" />
+
+      <label for="c">Enter c (Increment):</label>
+      <input type="number" id="c" placeholder="Enter c (e.g. 4)" />
+
+      <label for="m">Enter m (Modulus):</label>
+      <input type="number" id="m" placeholder="Enter m (e.g. 100)" />
+
+      <label for="days">Enter Number of Days (default 10):</label>
+      <input
+        type="number"
+        id="days"
+        placeholder="Enter number of days (default 10)"
+        value="10"
+      />
+
+      <label for="averageDays"
+        >Calculate Average Daily Demand for the First N Days:</label
+      >
+      <input
+        type="number"
+        id="averageDays"
+        placeholder="Enter N for average calculation (e.g. 4)"
+      />
+
+      <label for="expectedDay">Calculate Expected Demand on the Nth Day:</label>
+      <input
+        type="number"
+        id="expectedDay"
+        placeholder="Enter N for expected demand on Nth day (e.g. 5)"
+      />
+
+      <button onclick="calculateDemand()">Calculate Demands</button>
+
+      <div class="output" id="result"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
