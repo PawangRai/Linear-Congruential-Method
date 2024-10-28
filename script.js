@@ -21,16 +21,6 @@ function lcg(X0, a, c, m, n) {
   return { randomNumbers, normalizedNumbers };
 }
 
-function getDemand(randomNumber) {
-  let cumulativeProb = 0;
-  for (let i = 0; i < demandProbabilities.length; i++) {
-    cumulativeProb += demandProbabilities[i].probability;
-    if (randomNumber < cumulativeProb) {
-      return demandProbabilities[i].demand;
-    }
-  }
-}
-
 function calculateAverageDemand(demands, n) {
   let total = 0;
   for (let i = 0; i < n; i++) {
@@ -58,7 +48,7 @@ function calculateDemand() {
   let X0 = parseInt(document.getElementById("x0").value);
   let a = parseInt(document.getElementById("a").value);
   let c = parseInt(document.getElementById("c").value);
-  let m = parseInt(document.getElementById("m").value);
+  let m = document.getElementById("m").value;
   let days = parseInt(document.getElementById("days").value) || 10;
   let averageDays = parseInt(document.getElementById("averageDays").value);
   let expectedDay = parseInt(document.getElementById("expectedDay").value);
@@ -84,7 +74,11 @@ function calculateDemand() {
   );
   let demandNthDay = demandsWithRange[expectedDay - 1].demand;
 
-  let tableContentXiRi = `
+  if (X0 < 1 || a < 1 || c < 1 || m < 1) {
+    alert("Please enter a valid number for X0, a, c, m.");
+    return;
+  } else {
+    let tableContentXiRi = `
           <h3>Generated Random Numbers</h3>
           <table border="1" cellpadding="5" cellspacing="0">
               <tr>
@@ -93,17 +87,17 @@ function calculateDemand() {
                   <th>Ri (Normalized Random Number)</th>
               </tr>`;
 
-  for (let i = 0; i < days; i++) {
-    tableContentXiRi += `
+    for (let i = 0; i < days; i++) {
+      tableContentXiRi += `
               <tr>
                   <td>Day ${i + 1}</td>
                   <td>${randomNumbers[i]}</td>
                   <td>${normalizedNumbers[i].toFixed(4)}</td>
               </tr>`;
-  }
-  tableContentXiRi += `</table>`;
+    }
+    tableContentXiRi += `</table>`;
 
-  let tableContentXiDemand = `
+    let tableContentXiDemand = `
           <h3>Demand Based on Generated Random Numbers</h3>
           <table border="1" cellpadding="5" cellspacing="0">
               <tr>
@@ -113,21 +107,22 @@ function calculateDemand() {
                   <th>Probability Range</th>
               </tr>`;
 
-  for (let i = 0; i < days; i++) {
-    tableContentXiDemand += `
+    for (let i = 0; i < days; i++) {
+      tableContentXiDemand += `
               <tr>
                   <td>Day ${i + 1}</td>
                   <td>${randomNumbers[i]}</td>
                   <td>${demandsWithRange[i].demand}</td>
                   <td>${demandsWithRange[i].range}</td>
               </tr>`;
-  }
-  tableContentXiDemand += `</table>`;
+    }
+    tableContentXiDemand += `</table>`;
 
-  document.getElementById("result").innerHTML = `
+    document.getElementById("result").innerHTML = `
           ${tableContentXiRi}
           ${tableContentXiDemand}
           <p>Average Daily Demand (First ${averageDays} Days): ${avgFirstNDays.toFixed()}</p>
           <p>Expected Demand on Day ${expectedDay}: ${demandNthDay}</p>
       `;
+  }
 }
